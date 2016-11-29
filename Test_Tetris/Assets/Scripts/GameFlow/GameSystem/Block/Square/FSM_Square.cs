@@ -28,9 +28,9 @@ public enum SquareState_ID
         {
             //create State
 
-            //WaitState
-            FSM_State waitState = new FSM_State((int)SquareState_ID.Wait);
-            waitState.Initialize(this, null, () => { });
+            ////WaitState
+            //FSM_State waitState = new FSM_State((int)SquareState_ID.Wait);
+            //waitState.Initialize(this, null, () => { });
 
             FSM_State moveState = new FSM_State((int)SquareState_ID.Move);
             moveState.Initialize(this, null, () => { });

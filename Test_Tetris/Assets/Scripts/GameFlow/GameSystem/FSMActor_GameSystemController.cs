@@ -14,9 +14,9 @@ public class FSMActor_GameSystemController : FSMActor
     private float _gameTimer = 0.0f;
     public float GameTimer { get { return _gameTimer; } set { _gameTimer = value; } }
     //Grid
-    public const int GridWidth = 10;
-    public const int GridHight = 24;
-    private bool[][] _gridList = new bool[GridWidth][];
+    public const int SceneWidthGridNumber = 10;
+    public const int SceneHightGridNumber = 24;
+    private bool[][] _gridList = new bool[SceneWidthGridNumber][];
     //Down
     public const float DefalutMaxDownSpeed = 1.0f;
     public const float DefalutMinDownSpeed = 0.05f;
@@ -41,10 +41,10 @@ public class FSMActor_GameSystemController : FSMActor
     #region Function
     void InitGridList()
     {
-        for (int i = 0; i < GridWidth; i++)
+        for (int i = 0; i < SceneWidthGridNumber; i++)
         {
-            _gridList[i] = new bool[GridHight];
-            for (int j = 0; j < GridHight; j++)
+            _gridList[i] = new bool[SceneHightGridNumber];
+            for (int j = 0; j < SceneHightGridNumber; j++)
             {
                 _gridList[i][j] = false;
             }

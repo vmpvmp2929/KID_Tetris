@@ -16,15 +16,16 @@ public class FSM_Block : FSM {
     {
         //create State
 
-        //WaitState
-        FSM_State waitState = new FSM_State((int)BlockState_ID.Wait);
-        waitState.Initialize(this, null, () => { });
         //UpdateDownTimerState
         UpdateDownTimerState updateDownTimerState = new UpdateDownTimerState((int)BlockState_ID.UpdateDownTimer);
         updateDownTimerState.Initialize(this, null, () => { });
         //JudgeDownState
         JudgeDownState judgeDownState = new JudgeDownState((int)BlockState_ID.JudgeDown);
         judgeDownState.Initialize(this, null, () => { });
+
+        //WaitState
+        FSM_State waitState = new FSM_State((int)BlockState_ID.Wait);
+        waitState.Initialize(this, null, () => { });
     }
     #region Def State
     //UpdateDownTimerState

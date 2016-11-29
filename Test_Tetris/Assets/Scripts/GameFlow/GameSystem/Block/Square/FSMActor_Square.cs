@@ -8,28 +8,34 @@ using SquareFSM;
 public class FSMActor_Square : FSMActor
 {   
     private FSMActor_Block _thisBlock;
-    private Vector2 _localCoordinate = new Vector2(-1, -1);
+    private Vector2 _localCoordinate;
     private Vector2 _worldCoordinate = new Vector2(-1, -1);
     public bool IsAlife = true;
-
-
+    
     private MoveDirection _needToJudgeDirect;
     private float _disappearTimer = 0.0f;
     private Vector3 _disappearScaleSpeed;
 
-    public void Start()
+    public void Awake()
     {
         //SetFSM
         SetFSM(FSMManager.One.GetFSM((int)FSM_ID.SquareState));
+    }
+    public void Start()
+    {
         
     }
     #region Get And Set
     public Vector2 GetLocalCoordinate() { return _localCoordinate; }
-    public void SetLocalCoordinate(Vector2 newCoordinate) { _localCoordinate = newCoordinate; }
+    public void SetNeedToJudgeDirection(MoveDirection direct) { _needToJudgeDirect = direct; }
     public void SetJudgeDirection(MoveDirection direct) { _needToJudgeDirect |= direct; }
     public void ClearJudgeDirection(MoveDirection direct) { _needToJudgeDirect &= ~direct; }
     public void SetBlock(FSMActor_Block block) { _thisBlock = block; }
     private Vector2 GetWorldCoordinate() { return (_thisBlock.GetCoordinate() + _localCoordinate); }
+    public void SetLocalPosition(Vector3 Position)
+    {
+        this.gameObject.transform.localPosition = Position;
+    }
     #endregion
 
     #region Function
@@ -52,7 +58,7 @@ public class FSMActor_Square : FSMActor
                     return false;
                 return !(FSMActor_GameSystemController.One.GetGridList()[(int)_worldCoordinate.x - 1][(int)_worldCoordinate.y]);
             case MoveDirection.Right:
-                if (_worldCoordinate.x == FSMActor_GameSystemController.GridWidth - 1)
+                if (_worldCoordinate.x == FSMActor_GameSystemController.SceneWidthGridNumber - 1)
                     return false;
                 return !(FSMActor_GameSystemController.One.GetGridList()[(int)_worldCoordinate.x + 1][(int)_worldCoordinate.y]);
             default:

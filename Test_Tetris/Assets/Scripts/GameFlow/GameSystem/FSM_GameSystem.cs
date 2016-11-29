@@ -19,6 +19,7 @@ public class FSM_GameSystem : FSM {
 
     private bool _isGameOver = false;
     public bool IsGameOver { get { return _isGameOver; } set { _isGameOver = value; } }
+    private float _testTimer = 0.0f;
     #endregion
 
 
@@ -115,6 +116,7 @@ public class FSM_GameSystem : FSM {
         {
             base.Enter(fsm, owner);
             //SpawnNewBlock
+            BlockManager.One.SpawnNewBlock(0);
 
             //UpdateNextBlockUI
 
@@ -126,14 +128,29 @@ public class FSM_GameSystem : FSM {
     private class WaitState : FSM_State
     {
         public WaitState(int id) : base(id) { }
-
+        public override void Enter(FSM fsm, FSMActor owner)
+        {
+            base.Enter(fsm, owner);
+            FSM_GameSystem curFsm = fsm as FSM_GameSystem;
+            curFsm._testTimer = 5.0f;
+        }
         public override void Update(FSM fsm, FSMActor owner)
         {
             base.Enter(fsm, owner);
             //Wait for Block Down
 
             //Change State
-            owner.ChangeState((int)GameSystemState_ID.JudgeEliminate);
+            //owner.ChangeState((int)GameSystemState_ID.JudgeEliminate);
+
+            //Test
+            FSM_GameSystem curFsm = fsm as FSM_GameSystem;
+            if (curFsm._testTimer > 0)
+                curFsm._testTimer -= Time.deltaTime;
+            if(curFsm._testTimer<0)
+            {
+                curFsm._testTimer = 0.0f;
+                owner.ChangeState((int)GameSystemState_ID.SpawnNewBlock);
+            }
         }
     }
     //JudgeEliminateState
